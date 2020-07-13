@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "316760170164",
+    "firebase_url": "https://word-stock-c38f5.firebaseio.com",
+    "project_id": "word-stock-c38f5",
+    "storage_bucket": "word-stock-c38f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316760170164:android:dedba666bda0b14e0b81e1",
+        "android_client_info": {
+          "package_name": "com.example.word_stock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316760170164-1dgr4tofusaaoi44qsve8iem7vqo8ik1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT_Q1j-kYQknZ7oC0onKDor3HfjI9h8b0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316760170164-1dgr4tofusaaoi44qsve8iem7vqo8ik1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
