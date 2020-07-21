@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:word_stock/word_service.dart';
-import 'package:word_stock/ad_manager_test.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:word_stock/ad/ad_widget.dart';
+import 'package:word_stock/points/streak_widget.dart';
+import 'package:word_stock/word/word.dart';
+import 'package:word_stock/points/points_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,35 +36,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Word> _futureWord = getWord();
-  Future<void> _initAdMob() {
-    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
-  }
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<void> _incrementCounter() async {
+    final SharedPreferences prefs = await _prefs;
+    final int counter = (prefs.getInt('counter') ?? 0) + 1;
 
-  BannerAd _bannerAd;
-  void _loadBannerAd() {
-    _bannerAd
-      ..load()
-      ..show(anchorType: AnchorType.bottom);
+    setState(() {
+      prefs.setInt("counter", counter);
+    });
   }
-
-  final _biggerFont =
-      const TextStyle(fontSize: 42.0, fontWeight: FontWeight.w700);
 
   @override
   void initState() {
-    _initAdMob();
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.banner,
-    );
-    _loadBannerAd();
+    _incrementCounter();
     super.initState();
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -70,27 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
-        body: SafeArea(
+        body: Container(
             child: Column(children: <Widget>[
-          Center(
-            child: FutureBuilder<Word>(
-              future: _futureWord,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(children: <Widget>[
-                    Text(
-                      snapshot.data.word,
-                      style: _biggerFont,
-                    ),
-                    Text(snapshot.data.results[0].definition)
-                  ]);
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-                return CircularProgressIndicator();
-              },
-            ),
-          )
+          WordWidget(),
+          PointsWidget(),
+          StreakWidget(),
+          AdWidget(),
         ])));
   }
 }
