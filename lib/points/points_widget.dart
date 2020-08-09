@@ -28,7 +28,7 @@ class _PointsWidgetState extends State<PointsWidget>
     _getCounter();
     super.initState();
     _animationController = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 1000), vsync: this);
     _animation =
         CurvedAnimation(parent: _animationController, curve: Curves.bounceOut);
     _animationController.forward();
