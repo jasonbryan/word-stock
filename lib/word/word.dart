@@ -26,7 +26,8 @@ class _WordWidgetState extends State<WordWidget> {
                   snapshot.data.word,
                   style: _biggerFont,
                 ),
-                Text(snapshot.data.results[0].definition)
+                Text(snapshot.data.results[0].definition,
+                    textAlign: TextAlign.center)
               ]));
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
