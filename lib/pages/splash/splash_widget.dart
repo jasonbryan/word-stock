@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:word_stock/pages/home/home_widget.dart';
+import 'package:Wordstock/pages/home/home_widget.dart';
+import 'package:Wordstock/services/word_service.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key, this.title}) : super(key: key);
@@ -13,22 +14,11 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final _splashFont = TextStyle(fontSize: 56.0, fontWeight: FontWeight.w700);
-  @override
-  void initState() {
-    Future.delayed(Duration(seconds: 5), () {
-      // 5s over, navigate to a new page
-      Navigator.of(context).pushReplacement(_createRoute());
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    updateStats()
+        .then((_) => Navigator.of(context).pushReplacement(_createRoute()));
     return Scaffold(body: Center(child: Text('Wordstock', style: _splashFont)));
   }
 }

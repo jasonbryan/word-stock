@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:word_stock/ad/ad_manager.dart';
+import 'ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 class AdWidget extends StatefulWidget {

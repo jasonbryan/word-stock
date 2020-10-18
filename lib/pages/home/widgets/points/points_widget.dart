@@ -1,31 +1,25 @@
+import 'package:Wordstock/services/word_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PointsWidget extends StatefulWidget {
-  const PointsWidget({Key key}) : super(key: key);
-
+  const PointsWidget({Key key, this.stats}) : super(key: key);
+  final Stats stats;
   @override
   _PointsWidgetState createState() => _PointsWidgetState();
 }
 
 class _PointsWidgetState extends State<PointsWidget>
     with SingleTickerProviderStateMixin {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  int _points;
-  Future<void> _getCounter() async {
-    final SharedPreferences prefs = await _prefs;
-    final int points = (prefs.getInt('points') ?? 0);
-
-    setState(() {
-      _points = points;
-    });
-  }
-
   AnimationController _animationController;
   Animation<double> _animation;
+
+  final _pointsFont = TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w700,
+      color: ThemeData.dark().backgroundColor);
   @override
   void initState() {
-    _getCounter();
     super.initState();
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 1500), vsync: this);
@@ -43,13 +37,29 @@ class _PointsWidgetState extends State<PointsWidget>
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(children: <Widget>[
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
           ScaleTransition(
-              scale: _animation,
+            scale: _animation,
+            alignment: Alignment.center,
+            child: Stack(
               alignment: Alignment.center,
-              child: Column(children: <Widget>[Icon(Icons.star, size: 128.0)])),
-          Text(_points.toString()),
-        ]));
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  size: 250.0,
+                ),
+                Text(
+                  widget.stats.points.toString(),
+                  style: _pointsFont,
+                ),
+              ],
+            ),
+          ),
+          Text('Stars')
+        ],
+      ),
+    );
   }
 }

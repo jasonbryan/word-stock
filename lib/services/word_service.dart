@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 
-import 'package:http/http.dart' as http;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
-Future<Word> getNewWord() async {
+Future<Word> getWord() async {
   Word word;
   int min = 100000000;
   int max = 999999999;
@@ -23,25 +22,49 @@ Future<Word> getNewWord() async {
   return word;
 }
 
-Future<Word> getWord() async {
-  Word word;
-  http.Response response;
-  while (word == null || word.results == null) {
-    response = await http.get(
-      'https://wordsapiv1.p.rapidapi.com/words/?random=true',
-      headers: {
-        "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-        "x-rapidapi-key": "a04afa4e2fmshedd292207503780p1fb7c6jsnf05c55f3e1d3",
-        "useQueryString": "true"
-      },
-    );
-    if (response.statusCode == 200) {
-      word = Word.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load Word');
+Future<void> updateStats() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  int streak = prefs.getInt('streak') ?? 0;
+  int points = prefs.getInt('points') ?? 0;
+  String word = prefs.getString('word') ?? '';
+  String definition = prefs.getString('definition') ?? '';
+  String lastViewedDate = prefs.getString('lastViewedDate') ?? '';
+  final DateTime now = DateTime.now();
+  final DateTime yesterday = DateTime.now().add(new Duration(days: -1));
+  final DateFormat formatter = DateFormat('yyyy.MM.dd');
+  final String nowString = formatter.format(now);
+  final String yesterdayString = formatter.format(yesterday);
+
+  if (nowString != lastViewedDate) {
+    Word wordObj = await getWord();
+    word = wordObj.word;
+    definition = wordObj.results[0].definition;
+    points += 1; // Daily point
+    streak += 1; // Increment streak
+    if (yesterdayString == lastViewedDate) {
+      if (streak == 5) {
+        points += 5; // Streak Bonus (+5)
+      } else if (streak >= 6) {
+        streak = 1; // Don't want to rest till 6 so user can see 5 star streak
+      }
     }
   }
-  return word;
+  await prefs.setInt('streak', streak);
+  await prefs.setInt('points', points);
+  await prefs.setString('word', word);
+  await prefs.setString('definition', definition);
+  await prefs.setString('lastViewedDate', nowString);
+}
+
+Future<Stats> getStats() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Stats stats = new Stats();
+  stats.streak = prefs.getInt('streak') ?? 0;
+  stats.points = prefs.getInt('points') ?? 0;
+  stats.word = prefs.getString('word') ?? '';
+  stats.definition = prefs.getString('definition') ?? '';
+  stats.lastViewedDate = prefs.getString('lastViewedDate') ?? '';
+  return stats;
 }
 
 class Word {
@@ -65,4 +88,12 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(definition: json['definition']);
   }
+}
+
+class Stats {
+  int streak;
+  int points;
+  String lastViewedDate;
+  String word;
+  String definition;
 }
