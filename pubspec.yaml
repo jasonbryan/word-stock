@@ -28,8 +28,8 @@ dependencies:
   firebase_admob: ^0.9.3+4
   shared_preferences: ^0.5.8
 dependency_overrides:
-  firebase_core: "0.5.0"
-  
+  firebase_core: "0.5.0+1"
+  firebase_auth: "^0.18.1+2"
 
 
   # The following adds the Cupertino Icons font to your application.

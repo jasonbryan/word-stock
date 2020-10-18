@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:word_stock/word/word_service.dart';
+import 'package:word_stock/services/word_service.dart';
 
 class WordWidget extends StatefulWidget {
   const WordWidget({Key key}) : super(key: key);
@@ -9,7 +9,7 @@ class WordWidget extends StatefulWidget {
 }
 
 class _WordWidgetState extends State<WordWidget> {
-  Future<Word> _futureWord = getWord();
+  Future<Word> _futureWord = getNewWord();
   final _biggerFont =
       const TextStyle(fontSize: 42.0, fontWeight: FontWeight.w700);
   @override
@@ -18,7 +18,10 @@ class _WordWidgetState extends State<WordWidget> {
         child: FutureBuilder<Word>(
       future: _futureWord,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasError) {
+          return Text("${snapshot.error}");
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
           return Container(
               padding: const EdgeInsets.all(16.0),
               child: Column(children: <Widget>[
@@ -29,8 +32,6 @@ class _WordWidgetState extends State<WordWidget> {
                 Text(snapshot.data.results[0].definition,
                     textAlign: TextAlign.center)
               ]));
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
         }
         return Container(
             padding: const EdgeInsets.all(50.0),

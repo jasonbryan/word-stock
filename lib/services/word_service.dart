@@ -1,7 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+Future<Word> getNewWord() async {
+  Word word;
+  int min = 100000000;
+  int max = 999999999;
+  Random rnd = new Random();
+  int num = min + rnd.nextInt(max - min);
+  CollectionReference words = FirebaseFirestore.instance.collection('words');
+  var temp = await words
+      .where('id', isGreaterThanOrEqualTo: num)
+      .limit(1)
+      .get()
+      .then((QuerySnapshot querySnapshot) => querySnapshot.docs[0]);
+  word = Word.fromJson(temp.data());
+  print(num.toString() + "   " + word.id.toString() + "  " + word.word);
+  return word;
+}
 
 Future<Word> getWord() async {
   Word word;
@@ -25,16 +45,17 @@ Future<Word> getWord() async {
 }
 
 class Word {
+  final int id;
   final String word;
   final List<dynamic> results;
-  Word({this.word, this.results});
+  Word({this.id, this.word, this.results});
   factory Word.fromJson(Map<String, dynamic> json) {
     var list = json['results'] as List;
     print(list.runtimeType);
     List<Item> resultList =
         list != null ? list.map((e) => (Item.fromJson(e))).toList() : null;
 
-    return Word(word: json['word'], results: resultList);
+    return Word(id: json['id'], word: json['word'], results: resultList);
   }
 }
 
