@@ -18,7 +18,11 @@ class _AdWidgetSate extends State<AdWidget> {
   void _loadBannerAd() {
     _bannerAd
       ..load()
-      ..show(anchorType: AnchorType.bottom);
+      ..show(
+        anchorOffset: 60.0,
+        horizontalCenterOffset: 10.0,
+        anchorType: AnchorType.bottom,
+      );
   }
 
   @override
@@ -26,7 +30,7 @@ class _AdWidgetSate extends State<AdWidget> {
     _initAdMob();
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.banner,
+      size: AdSize.smartBanner,
     );
     _loadBannerAd();
     super.initState();

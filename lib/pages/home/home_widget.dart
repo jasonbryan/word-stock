@@ -18,33 +18,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      child: FutureBuilder(
-        future: _getStats,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-              appBar: AppBar(title: Text(widget.title)),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    WordWidget(stats: snapshot.data),
-                    PointsWidget(stats: snapshot.data),
-                    StreakWidget(stats: snapshot.data),
-                    AdWidget(),
-                  ],
-                ),
-              ),
-            );
-          }
+    return FutureBuilder(
+      future: _getStats,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
-            body: CircularProgressIndicator(),
+            appBar: AppBar(title: Text(widget.title)),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  WordWidget(stats: snapshot.data),
+                  PointsWidget(stats: snapshot.data),
+                  StreakWidget(stats: snapshot.data),
+                  AdWidget(),
+                ],
+              ),
+            ),
           );
-        },
-      ),
-      onRefresh: () async {
-        _getStats = getStats();
+        }
+        return Scaffold(
+          body: CircularProgressIndicator(),
+        );
       },
     );
   }

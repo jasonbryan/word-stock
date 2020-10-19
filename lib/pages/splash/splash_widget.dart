@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 import 'package:word_stock/pages/home/home_widget.dart';
 import 'package:word_stock/services/word_service.dart';
@@ -14,11 +13,11 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final _splashFont = TextStyle(fontSize: 56.0, fontWeight: FontWeight.w700);
-
   @override
   Widget build(BuildContext context) {
-    updateStats()
+    Future.wait([updateStats(), Future.delayed(const Duration(seconds: 2))])
         .then((_) => Navigator.of(context).pushReplacement(_createRoute()));
+
     return Scaffold(body: Center(child: Text('Wordstock', style: _splashFont)));
   }
 }
@@ -43,6 +42,6 @@ Route _createRoute() {
         child: child,
       );
     },
-    transitionDuration: const Duration(milliseconds: 1200),
+    transitionDuration: const Duration(milliseconds: 1000),
   );
 }

@@ -1,4 +1,4 @@
-package com.example.word_stock
+package com.jasonbryan.word_stock
 
 import io.flutter.embedding.android.FlutterActivity
 
