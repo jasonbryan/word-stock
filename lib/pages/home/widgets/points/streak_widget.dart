@@ -1,4 +1,4 @@
-import 'package:Wordstock/services/word_service.dart';
+import 'package:word_stock/services/word_service.dart';
 import 'package:flutter/material.dart';
 
 class StreakWidget extends StatefulWidget {

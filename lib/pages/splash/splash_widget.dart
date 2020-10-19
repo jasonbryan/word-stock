@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:Wordstock/pages/home/home_widget.dart';
-import 'package:Wordstock/services/word_service.dart';
+import 'package:word_stock/pages/home/home_widget.dart';
+import 'package:word_stock/services/word_service.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key, this.title}) : super(key: key);

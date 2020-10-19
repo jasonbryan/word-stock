@@ -1,6 +1,5 @@
-import 'package:Wordstock/services/word_service.dart';
+import 'package:word_stock/services/word_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PointsWidget extends StatefulWidget {
   const PointsWidget({Key key, this.stats}) : super(key: key);

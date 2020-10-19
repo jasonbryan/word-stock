@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:316760170164:android:dedba666bda0b14e0b81e1",
+        "mobilesdk_app_id": "1:316760170164:android:3ad37df59971b9210b81e1",
         "android_client_info": {
-          "package_name": "com.example.word_stock"
+          "package_name": "com.jasonbryan.word_stock"
         }
       },
       "oauth_client": [
@@ -33,7 +33,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-5316667459256484~9312064451"
     }
   ],
   "configuration_version": "1"

@@ -47,6 +47,8 @@ Future<void> updateStats() async {
       } else if (streak >= 6) {
         streak = 1; // Don't want to rest till 6 so user can see 5 star streak
       }
+    } else {
+      streak = 1; // Wasn't consecutive day so reset streak
     }
   }
   await prefs.setInt('streak', streak);
