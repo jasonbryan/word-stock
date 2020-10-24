@@ -1,4 +1,4 @@
-import 'package:word_stock/services/word_service.dart';
+import 'package:wordstock/services/word_service.dart';
 import 'package:flutter/material.dart';
 
 class PointsWidget extends StatefulWidget {

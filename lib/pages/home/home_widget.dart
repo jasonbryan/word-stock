@@ -1,5 +1,5 @@
-import 'package:word_stock/ad/ad_widget.dart';
-import 'package:word_stock/services/word_service.dart';
+import 'package:wordstock/ad/ad_widget.dart';
+import 'package:wordstock/services/word_service.dart';
 import 'package:flutter/material.dart';
 import 'widgets/points/points_widget.dart';
 import 'widgets/points/streak_widget.dart';
