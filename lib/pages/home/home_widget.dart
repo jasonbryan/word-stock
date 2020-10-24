@@ -1,5 +1,4 @@
-import 'package:firebase_admob/firebase_admob.dart';
-import 'package:word_stock/services/ad_manager.dart';
+import 'package:word_stock/ad/ad_widget.dart';
 import 'package:word_stock/services/word_service.dart';
 import 'package:flutter/material.dart';
 import 'widgets/points/points_widget.dart';
@@ -16,37 +15,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<Stats> _getStats = getStats();
-  Future<void> _initAdMob() {
-    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
-  }
-
-  BannerAd _bannerAd;
-  void _loadBannerAd() {
-    _bannerAd
-      ..load()
-      ..show(
-        anchorOffset: 60.0,
-        horizontalCenterOffset: 10.0,
-        anchorType: AnchorType.bottom,
-      );
-  }
-
-  @override
-  void initState() {
-    _initAdMob();
-    _bannerAd = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.banner,
-    );
-    _loadBannerAd();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +28,11 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 WordWidget(stats: snapshot.data),
-                PointsWidget(stats: snapshot.data),
+                Flexible(
+                    fit: FlexFit.tight,
+                    child: PointsWidget(stats: snapshot.data)),
                 StreakWidget(stats: snapshot.data),
+                AdWidget(),
               ],
             ),
           );

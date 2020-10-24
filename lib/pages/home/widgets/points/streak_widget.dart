@@ -28,37 +28,40 @@ class _StreakWidgetState extends State<StreakWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            for (var i = 0; i < widget.stats.streak; i++)
-              Icon(Icons.whatshot, size: 32.0),
-          ],
-        ),
-        InkWell(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  'Streak',
-                ),
-              ),
-              Icon(
-                Icons.info_outline,
-                size: 16.0,
-              ),
+            children: <Widget>[
+              for (var i = 0; i < widget.stats.streak; i++)
+                Icon(Icons.whatshot, size: 32.0),
             ],
           ),
-          onTap: () {
-            _showMaterialDialog();
-          },
-        ),
-      ],
+          InkWell(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    'Streak',
+                  ),
+                ),
+                Icon(
+                  Icons.info_outline,
+                  size: 16.0,
+                ),
+              ],
+            ),
+            onTap: () {
+              _showMaterialDialog();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

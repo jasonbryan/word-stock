@@ -53,54 +53,47 @@ class _PointsWidgetState extends State<PointsWidget>
               ));
     }
 
-    return Container(
-      padding: const EdgeInsets.only(
-        right: 16.0,
-        left: 16.0,
-        top: 50.0,
-        bottom: 75.0,
-      ),
-      child: Column(
-        children: <Widget>[
-          ScaleTransition(
-            scale: _animation,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.star,
-                  size: 250.0,
-                ),
-                Text(
-                  widget.stats.points.toString(),
-                  style: _pointsFont,
-                ),
-              ],
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ScaleTransition(
+          scale: _animation,
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.star,
+                size: 250.0,
+              ),
+              Text(
+                widget.stats.points.toString(),
+                style: _pointsFont,
+              ),
+            ],
           ),
-          InkWell(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    'Stars',
-                  ),
+        ),
+        InkWell(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  'Stars',
                 ),
-                Icon(
-                  Icons.info_outline,
-                  size: 16.0,
-                ),
-              ],
-            ),
-            onTap: () {
-              _showMaterialDialog();
-            },
+              ),
+              Icon(
+                Icons.info_outline,
+                size: 16.0,
+              ),
+            ],
           ),
-        ],
-      ),
+          onTap: () {
+            _showMaterialDialog();
+          },
+        ),
+      ],
     );
   }
 }

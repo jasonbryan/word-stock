@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
+const String testDevice = 'YOUR_DEVICE_ID';
+
 class AdWidget extends StatefulWidget {
   const AdWidget({Key key}) : super(key: key);
 
@@ -19,8 +21,6 @@ class _AdWidgetSate extends State<AdWidget> {
     _bannerAd
       ..load()
       ..show(
-        anchorOffset: 60.0,
-        horizontalCenterOffset: 10.0,
         anchorType: AnchorType.bottom,
       );
   }
@@ -44,6 +44,8 @@ class _AdWidgetSate extends State<AdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
+    return Container(
+      height: 50,
+    );
   }
 }
