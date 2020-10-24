@@ -12,12 +12,9 @@ Future<Word> getWord() async {
   Random rnd = new Random();
   int num = min + rnd.nextInt(max - min);
   CollectionReference words = FirebaseFirestore.instance.collection('words');
-  var temp = await words
-      .where('id', isGreaterThanOrEqualTo: num)
-      .limit(1)
-      .get()
-      .then((QuerySnapshot querySnapshot) => querySnapshot.docs[0]);
-  word = Word.fromJson(temp.data());
+  var temp =
+      await words.where('id', isGreaterThanOrEqualTo: num).limit(1).get();
+  word = Word.fromJson(temp.docs[0].data());
   print(num.toString() + "   " + word.id.toString() + "  " + word.word);
   return word;
 }
@@ -50,11 +47,12 @@ Future<void> updateStats() async {
     } else {
       streak = 1; // Wasn't consecutive day so reset streak
     }
+    await prefs.setInt('streak', streak);
+    await prefs.setInt('points', points);
+    await prefs.setString('word', word);
+    await prefs.setString('definition', definition);
   }
-  await prefs.setInt('streak', streak);
-  await prefs.setInt('points', points);
-  await prefs.setString('word', word);
-  await prefs.setString('definition', definition);
+
   await prefs.setString('lastViewedDate', nowString);
 }
 

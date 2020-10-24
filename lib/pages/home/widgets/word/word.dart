@@ -13,15 +13,14 @@ class _WordWidgetState extends State<WordWidget> {
       const TextStyle(fontSize: 42.0, fontWeight: FontWeight.w700);
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(children: <Widget>[
-              Text(
-                widget.stats.word,
-                style: _biggerFont,
-              ),
-              Text(widget.stats.definition, textAlign: TextAlign.center)
-            ])));
+    return Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(children: <Widget>[
+          Text(
+            widget.stats.word,
+            style: _biggerFont,
+          ),
+          Text(widget.stats.definition, textAlign: TextAlign.center)
+        ]));
   }
 }

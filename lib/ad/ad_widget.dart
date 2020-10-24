@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ad_manager.dart';
+import '../services/ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 class AdWidget extends StatefulWidget {
@@ -30,7 +30,7 @@ class _AdWidgetSate extends State<AdWidget> {
     _initAdMob();
     _bannerAd = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.smartBanner,
+      size: AdSize.banner,
     );
     _loadBannerAd();
     super.initState();
@@ -44,6 +44,6 @@ class _AdWidgetSate extends State<AdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SizedBox();
   }
 }

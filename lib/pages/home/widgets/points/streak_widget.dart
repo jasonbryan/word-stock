@@ -9,17 +9,58 @@ class StreakWidget extends StatefulWidget {
 }
 
 class _StreakWidgetState extends State<StreakWidget> {
+  _showMaterialDialog() {
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+              title: new Text("Streak Bonus"),
+              content: new Text("Get 5 bonus stars after a 5 day streak!"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Close'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          for (var i = 0; i < widget.stats.streak; i++)
-            Icon(Icons.star, size: 32.0),
-          for (var i = 0; i < (5 - widget.stats.streak); i++)
-            Icon(Icons.star_border, size: 32.0)
-        ]),
-        Text('Streak')
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            for (var i = 0; i < widget.stats.streak; i++)
+              Icon(Icons.star, size: 32.0),
+            for (var i = 0; i < (5 - widget.stats.streak); i++)
+              Icon(Icons.star_border, size: 32.0)
+          ],
+        ),
+        InkWell(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Text(
+                  'Streak',
+                ),
+              ),
+              Icon(
+                Icons.info_outline,
+                size: 16.0,
+              ),
+            ],
+          ),
+          onTap: () {
+            _showMaterialDialog();
+          },
+        ),
       ],
     );
   }

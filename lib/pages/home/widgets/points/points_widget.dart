@@ -35,13 +35,35 @@ class _PointsWidgetState extends State<PointsWidget>
 
   @override
   Widget build(BuildContext context) {
+    _showMaterialDialog() {
+      showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+                title: new Text("Stars"),
+                content: new Text(
+                    "One star is given every day you view a new word and defintion. Additional stars can be earned through your streak bonus."),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Close'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              ));
+    }
+
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.only(
+        right: 16.0,
+        left: 16.0,
+        top: 50.0,
+        bottom: 75.0,
+      ),
       child: Column(
         children: <Widget>[
           ScaleTransition(
             scale: _animation,
-            alignment: Alignment.center,
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
@@ -56,7 +78,27 @@ class _PointsWidgetState extends State<PointsWidget>
               ],
             ),
           ),
-          Text('Stars')
+          InkWell(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: Text(
+                    'Stars',
+                  ),
+                ),
+                Icon(
+                  Icons.info_outline,
+                  size: 16.0,
+                ),
+              ],
+            ),
+            onTap: () {
+              _showMaterialDialog();
+            },
+          ),
         ],
       ),
     );
