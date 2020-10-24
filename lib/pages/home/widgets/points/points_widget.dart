@@ -41,7 +41,7 @@ class _PointsWidgetState extends State<PointsWidget>
           builder: (_) => new AlertDialog(
                 title: new Text("Stars"),
                 content: new Text(
-                    "One star is given every day you view a new word and defintion. Additional stars can be earned through your streak bonus."),
+                    "You are given one star each day you view your word. Additional stars can be earned through your streak bonus."),
                 actions: <Widget>[
                   FlatButton(
                     child: Text('Close'),
@@ -84,7 +84,7 @@ class _PointsWidgetState extends State<PointsWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 4.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Text(
                     'Stars',
                   ),

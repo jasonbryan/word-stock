@@ -31,13 +31,10 @@ class _StreakWidgetState extends State<StreakWidget> {
     return Column(
       children: [
         Row(
-          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             for (var i = 0; i < widget.stats.streak; i++)
-              Icon(Icons.star, size: 32.0),
-            for (var i = 0; i < (5 - widget.stats.streak); i++)
-              Icon(Icons.star_border, size: 32.0)
+              Icon(Icons.whatshot, size: 32.0),
           ],
         ),
         InkWell(
@@ -46,7 +43,7 @@ class _StreakWidgetState extends State<StreakWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Text(
                   'Streak',
                 ),

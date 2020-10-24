@@ -56,14 +56,13 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
             appBar: AppBar(title: Text(widget.title)),
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  WordWidget(stats: snapshot.data),
-                  PointsWidget(stats: snapshot.data),
-                  StreakWidget(stats: snapshot.data),
-                ],
-              ),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                WordWidget(stats: snapshot.data),
+                PointsWidget(stats: snapshot.data),
+                StreakWidget(stats: snapshot.data),
+              ],
             ),
           );
         }
