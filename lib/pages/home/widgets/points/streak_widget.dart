@@ -14,7 +14,8 @@ class _StreakWidgetState extends State<StreakWidget> {
         context: context,
         builder: (_) => new AlertDialog(
               title: new Text("Streak Bonus"),
-              content: new Text("Get 5 bonus stars after a 5 day streak!"),
+              content: new Text(
+                  "Get a bonus 5 stars ever 5 day streak. Streak total will continues to accumuilate."),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Close'),
@@ -26,16 +27,28 @@ class _StreakWidgetState extends State<StreakWidget> {
             ));
   }
 
+  final _streakFont = TextStyle(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w700,
+  );
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              widget.stats.streak.toString() +
+                  (widget.stats.streak > 1 ? ' days' : ' day'),
+              style: _streakFont,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              for (var i = 0; i < widget.stats.streak; i++)
+              for (var i = 0; i < (widget.stats.streak % 5); i++)
                 Icon(Icons.whatshot, size: 32.0),
             ],
           ),
@@ -47,7 +60,7 @@ class _StreakWidgetState extends State<StreakWidget> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Streak',
+                    'Streak Bonus',
                   ),
                 ),
                 Icon(

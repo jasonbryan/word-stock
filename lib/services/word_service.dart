@@ -26,6 +26,8 @@ Future<void> updateStats() async {
   String word = prefs.getString('word') ?? '';
   String definition = prefs.getString('definition') ?? '';
   String lastViewedDate = prefs.getString('lastViewedDate') ?? '';
+  List<String> previousWords =
+      prefs.getStringList('previousWords') ?? new List<String>();
   final DateTime now = DateTime.now();
   final DateTime yesterday = DateTime.now().add(new Duration(days: -1));
   final DateFormat formatter = DateFormat('yyyy.MM.dd');
@@ -35,22 +37,26 @@ Future<void> updateStats() async {
   if (nowString != lastViewedDate) {
     Word wordObj = await getWord();
     word = wordObj.word;
+    while (previousWords.contains(word)) {
+      wordObj = await getWord();
+      word = wordObj.word;
+    }
+    previousWords.add(word);
     definition = wordObj.results[0].definition;
     points += 1; // Daily point
     streak += 1; // Increment streak
     if (yesterdayString == lastViewedDate) {
-      if (streak == 5) {
+      if ((streak % 5) == 0) {
         points += 5; // Streak Bonus (+5)
-      } else if (streak >= 6) {
-        streak = 1; // Don't want to rest till 6 so user can see 5 star streak
       }
     } else {
-      streak = 1; // Wasn't consecutive day so reset streak
+      streak = 1;
     }
     await prefs.setInt('streak', streak);
     await prefs.setInt('points', points);
     await prefs.setString('word', word);
     await prefs.setString('definition', definition);
+    await prefs.setStringList('previousWords', previousWords);
   }
 
   await prefs.setString('lastViewedDate', nowString);
