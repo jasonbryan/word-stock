@@ -15,7 +15,7 @@ class _StreakWidgetState extends State<StreakWidget> {
         builder: (_) => new AlertDialog(
               title: new Text("Streak Bonus"),
               content: new Text(
-                  "Get a bonus 5 stars ever 5 day streak. Streak total will continues to accumuilate."),
+                  "Get a bonus 5 stars ever 5 day streak. Streak total will continue to accumuilate."),
               actions: <Widget>[
                 FlatButton(
                   child: Text('Close'),

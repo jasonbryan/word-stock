@@ -52,6 +52,7 @@ Future<void> updateStats() async {
     } else {
       streak = 1;
     }
+
     await prefs.setInt('streak', streak);
     await prefs.setInt('points', points);
     await prefs.setString('word', word);
@@ -70,6 +71,8 @@ Future<Stats> getStats() async {
   stats.word = prefs.getString('word') ?? '';
   stats.definition = prefs.getString('definition') ?? '';
   stats.lastViewedDate = prefs.getString('lastViewedDate') ?? '';
+  stats.previousWords =
+      prefs.getStringList('previousWords') ?? new List<String>();
   return stats;
 }
 
@@ -102,4 +105,5 @@ class Stats {
   String lastViewedDate;
   String word;
   String definition;
+  List<String> previousWords;
 }

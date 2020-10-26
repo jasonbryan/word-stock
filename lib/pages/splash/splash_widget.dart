@@ -4,8 +4,8 @@ import 'package:wordstock/pages/home/home_widget.dart';
 import 'package:wordstock/services/word_service.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({Key key, this.title}) : super(key: key);
-  final String title;
+  SplashPage({Key key}) : super(key: key);
+  static const String routeName = '/splash';
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -53,8 +53,7 @@ class _SplashPageState extends State<SplashPage> {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        HomePage(title: 'Wordstock'),
+    pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = Offset(1.0, 0.0);
       var end = Offset.zero;
