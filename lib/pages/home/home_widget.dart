@@ -35,8 +35,9 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 WordWidget(stats: snapshot.data),
                 Flexible(
-                    fit: FlexFit.tight,
-                    child: PointsWidget(stats: snapshot.data)),
+                  fit: FlexFit.tight,
+                  child: PointsWidget(stats: snapshot.data),
+                ),
                 StreakWidget(stats: snapshot.data),
                 AdWidget(),
               ],

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../services/ad_manager.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-const String testDevice = 'YOUR_DEVICE_ID';
-
 class AdWidget extends StatefulWidget {
   const AdWidget({Key key}) : super(key: key);
 
