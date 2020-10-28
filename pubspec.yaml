@@ -76,7 +76,7 @@ flutter:
   fonts:
     - family: Mitr
       fonts:
-        - asset: assets\fonts\Mitr-Regular.ttf
+        - asset: assets/fonts/Mitr-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
