@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordstock/services/word_service.dart';
+import 'package:word_stock/ad/ad_widget.dart';
+import 'package:word_stock/services/word_service.dart';
 
 class WordHistoryPage extends StatefulWidget {
   WordHistoryPage({Key key}) : super(key: key);
@@ -36,6 +37,7 @@ class _WordHistoryPage extends State<WordHistoryPage> {
                       style: _wordFont,
                     ),
                   ),
+                AdBannerSpacer(),
               ],
             ),
           );

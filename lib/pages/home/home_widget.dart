@@ -1,11 +1,14 @@
-import 'package:wordstock/ad/ad_widget.dart';
-import 'package:wordstock/pages/word-history/word-history.dart';
-import 'package:wordstock/routes/routes.dart';
-import 'package:wordstock/services/word_service.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:word_stock/ad/ad_widget.dart';
+import 'package:word_stock/pages/word-history/word-history.dart';
+import 'package:word_stock/services/ad_manager.dart';
+import 'package:word_stock/services/word_service.dart';
 import 'package:flutter/material.dart';
 import 'widgets/points/points_widget.dart';
 import 'widgets/points/streak_widget.dart';
 import 'widgets/word/word.dart';
+
+const String testDevice = 'Pixel_3a_XL_API_30';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -17,10 +20,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<Stats> _getStats = getStats();
+
+  BannerAd _bannerAd;
+  BannerAd createBannerAd() {
+    return BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.banner,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
+
   final _linkStyle = TextStyle(
     fontSize: 18.0,
     fontWeight: FontWeight.w700,
   );
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+    _bannerAd = createBannerAd()
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+      );
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                   child: PointsWidget(stats: snapshot.data),
                 ),
                 StreakWidget(stats: snapshot.data),
-                AdWidget(),
+                AdBannerSpacer(),
               ],
             ),
             drawer: Drawer(

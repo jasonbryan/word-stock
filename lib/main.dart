@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:wordstock/pages/splash/splash_widget.dart';
-
+import 'package:word_stock/pages/splash/splash_widget.dart';
 import 'services/push_notification_manager.dart';
 
 void main() {
@@ -12,10 +11,13 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Future<void> _pushNotificationsManager = PushNotificationsManager().init();
+    final _firebaseInits = Future.wait([
+      PushNotificationsManager().init(),
+      Firebase.initializeApp(),
+    ]);
     return FutureBuilder(
       // Initialize FlutterFire
-      future: Firebase.initializeApp(),
+      future: _firebaseInits,
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {

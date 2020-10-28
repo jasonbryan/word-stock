@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wordstock/services/word_service.dart';
+import 'package:word_stock/services/word_service.dart';
 
 class WordWidget extends StatefulWidget {
   const WordWidget({Key key, this.stats}) : super(key: key);
